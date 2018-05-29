@@ -1,4 +1,5 @@
 ﻿using System;
+using System.IO;
 
 namespace ConsoleApp
 {
@@ -16,7 +17,8 @@ namespace ConsoleApp
                 Console.WriteLine(" 1 - Сумматор");
                 Console.WriteLine(" 2 - Анкета");
                 Console.WriteLine(" 3 - Зарплата");
-                Console.WriteLine(" 4 - Калькулятор");
+                Console.WriteLine(" 4 - Авторизация");
+                Console.WriteLine(" 5 - Калькулятор");
 
                 prog = Int32.Parse(Console.ReadLine());
 
@@ -35,6 +37,9 @@ namespace ConsoleApp
                         Wage();
                         break;
                     case 4:
+                        Authorization();
+                        break;
+                    case 5:
                         Calculater();
                         break;
                     default:
@@ -43,6 +48,37 @@ namespace ConsoleApp
                 }
                 Console.WriteLine("");
             }
+        }
+
+        private static void Authorization()
+        {
+            String password = String.Empty, login = String.Empty;
+
+            Console.WriteLine("Введите логин");
+            login = Console.ReadLine();
+
+            Console.WriteLine("Введите пароль");
+            password = Console.ReadLine();
+
+            if (Validation(login, password))
+            {
+                Console.WriteLine("Вы авторизовались");
+            }
+            else
+            {
+                Console.WriteLine("Вы не авторизовались");
+            }
+        }
+
+        private static Boolean Validation(String login, String password)
+        {
+            String[] loginPassword = new String[2];
+            using(StreamReader sr = new StreamReader("test.txt"))
+            {
+                loginPassword = sr.ReadLine().Split(new char[] { '\t' });
+            }
+            
+            return (login == loginPassword[0] && password == loginPassword[1]) ? true : false;
         }
 
         private static void Calculater()
