@@ -41,6 +41,7 @@ namespace ConsoleApp
                         Console.WriteLine("Введено не корректное число. Выходим!");
                         break;
                 }
+                Console.WriteLine("");
             }
         }
 
@@ -50,14 +51,22 @@ namespace ConsoleApp
             Int32 operand1 = 0, operand2 = 0;
             Double result = 0;
 
-            Console.WriteLine("Введите знак операции");
+            Console.WriteLine("Введите знак операции (+ - * /)");
             operat = Console.ReadLine();
 
             Console.WriteLine("Введите первое число");
-            operand1 = Int32.Parse(Console.ReadLine());
+            if (!Int32.TryParse(Console.ReadLine(), out operand1))
+            {
+                Console.WriteLine("Ошибка ввода числа");
+                return;
+            }
 
             Console.WriteLine("Введите второе число");
-            operand2 = Int32.Parse(Console.ReadLine());
+            if (!Int32.TryParse(Console.ReadLine(), out operand2))
+            {
+                Console.WriteLine("Ошибка ввода числа");
+                return;
+            }
 
             switch (operat)
             {
