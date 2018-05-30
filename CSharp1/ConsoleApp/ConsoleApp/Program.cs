@@ -19,8 +19,13 @@ namespace ConsoleApp
                 Console.WriteLine(" 3 - Зарплата");
                 Console.WriteLine(" 4 - Авторизация");
                 Console.WriteLine(" 5 - Калькулятор");
+                Console.WriteLine(" 6 - Перевод десятичного числа в двоичное");
 
-                prog = Int32.Parse(Console.ReadLine());
+                if (!Int32.TryParse(Console.ReadLine(), out prog))
+                {
+                    Console.WriteLine("Ошибка ввода номера программы");
+                    continue;
+                }
 
                 switch (prog)
                 {
@@ -42,12 +47,44 @@ namespace ConsoleApp
                     case 5:
                         Calculater();
                         break;
+                    case 6:
+                        Translations10To2();
+                        break;
                     default:
                         Console.WriteLine("Введено не корректное число. Выходим!");
                         break;
                 }
                 Console.WriteLine("");
             }
+        }
+
+        private static void Translations10To2()
+        {
+            Int32 operand = 0;
+
+            Console.WriteLine("Введите число для перевода в двоичную систему исчисления");
+            if (!Int32.TryParse(Console.ReadLine(), out operand))
+            {
+                Console.WriteLine("Ошибка ввода числа");
+                return;
+            }
+
+            Console.WriteLine("Число {0} переведено в двоичную систему: {1}", operand, Recursion10To2(operand));
+        }
+
+        private static String Recursion10To2(Int32 operand)
+        {
+            String str = String.Empty;
+
+            if (operand < 2)
+            {
+                return operand.ToString();
+            }
+
+            str = (operand % 2).ToString();
+            operand /= 2;
+
+            return Recursion10To2(operand) + str;
         }
 
         private static void Authorization()
