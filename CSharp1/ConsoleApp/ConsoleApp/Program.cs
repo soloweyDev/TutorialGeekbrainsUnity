@@ -55,6 +55,7 @@ namespace ConsoleApp
                         Translations10To2();
                         break;
                     case 7:
+                        WorkComplex();
                         break;
                     case 8:
                         SumOfNumber();
@@ -65,6 +66,17 @@ namespace ConsoleApp
                 }
                 Console.WriteLine("");
             }
+        }
+
+        private static void WorkComplex()
+        {
+            Complex complex1 = new Complex(2, 3);
+            Complex complex2 = new Complex(1, 2);
+            Complex complex3 = complex1 + complex2;
+            Complex complex4 = complex1 - complex2;
+
+            Console.WriteLine("complex3 ({0}, {1})", complex3.Real, complex3.Mag);
+            Console.WriteLine("complex4 ({0}, {1})", complex4.Real, complex4.Mag);
         }
 
         private static void SumOfNumber()
@@ -254,6 +266,28 @@ namespace ConsoleApp
 
             string result = name + " " + lastname + " " + age + " " + date + " " + h + " " + w;
             Console.WriteLine(result);
+        }
+    }
+
+    public struct Complex
+    {
+        public Int32 Real { get; set; }
+        public Int32 Mag { get; set; }
+
+        public Complex(Int32 real, Int32 mag)
+        {
+            Real = real;
+            Mag  = mag;
+        }
+
+        public static Complex operator + (Complex left, Complex rigth)
+        {
+            return new Complex(left.Real + rigth.Real, left.Mag + rigth.Mag);
+        }
+
+        public static Complex operator -(Complex left, Complex rigth)
+        {
+            return new Complex(left.Real - rigth.Real, left.Mag - rigth.Mag);
         }
     }
 }
