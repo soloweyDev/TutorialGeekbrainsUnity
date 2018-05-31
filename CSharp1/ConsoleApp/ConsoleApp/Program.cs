@@ -1,5 +1,7 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.IO;
+using System.Text;
 
 namespace ConsoleApp
 {
@@ -20,6 +22,8 @@ namespace ConsoleApp
                 Console.WriteLine(" 4 - Авторизация");
                 Console.WriteLine(" 5 - Калькулятор");
                 Console.WriteLine(" 6 - Перевод десятичного числа в двоичное");
+                Console.WriteLine(" 7 - Complex");
+                Console.WriteLine(" 8 - Подсчет суммы введеных чисел");
 
                 if (!Int32.TryParse(Console.ReadLine(), out prog))
                 {
@@ -50,12 +54,57 @@ namespace ConsoleApp
                     case 6:
                         Translations10To2();
                         break;
+                    case 7:
+                        break;
+                    case 8:
+                        SumOfNumber();
+                        break;
                     default:
                         Console.WriteLine("Введено не корректное число. Выходим!");
                         break;
                 }
                 Console.WriteLine("");
             }
+        }
+
+        private static void SumOfNumber()
+        {
+            List<Int32> list = new List<int>();
+            Int32 summ = 0, temp = 0;
+
+            while (true)
+            {
+                Console.WriteLine("Введите число, для выхода введите 0.");
+                
+                if (!Int32.TryParse(Console.ReadLine(), out temp))
+                {
+                    Console.WriteLine("Ошибка ввода числа");
+                    continue;
+                }
+
+                list.Add(temp);
+
+                if (temp == 0)
+                {
+                    break;
+                }
+                else if (temp < 0)
+                {
+                    continue;
+                }
+                else
+                {
+                    summ += temp;
+                }
+            }
+
+            Console.Write("Были введены слудующие числа: ");
+            foreach (Int32 value in list)
+            {
+                Console.Write("{0}, ", value);
+            }
+            Console.WriteLine();
+            Console.WriteLine("Сумма положительных чисел равна: {0}", summ);
         }
 
         private static void Translations10To2()
