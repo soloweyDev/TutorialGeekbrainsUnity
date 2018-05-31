@@ -9,23 +9,18 @@ namespace ConsoleApp
     {
         private static void Main(string[] args)
         {
-            Int32 prog = 0;
+            Uroks();
+        }
+
+        private static void Uroks()
+        {
             Boolean exit = true;
 
             while (exit)
             {
-                Console.WriteLine("Выберите программу");
-                Console.WriteLine(" 0 - Выход");
-                Console.WriteLine(" 1 - Сумматор");
-                Console.WriteLine(" 2 - Анкета");
-                Console.WriteLine(" 3 - Зарплата");
-                Console.WriteLine(" 4 - Авторизация");
-                Console.WriteLine(" 5 - Калькулятор");
-                Console.WriteLine(" 6 - Перевод десятичного числа в двоичное");
-                Console.WriteLine(" 7 - Complex");
-                Console.WriteLine(" 8 - Подсчет суммы введеных чисел");
+                Console.WriteLine("Введите номер урока (1-8). 0 - выход.");
 
-                if (!Int32.TryParse(Console.ReadLine(), out prog))
+                if (!Int32.TryParse(Console.ReadLine(), out var prog))
                 {
                     Console.WriteLine("Ошибка ввода номера программы");
                     continue;
@@ -37,34 +32,181 @@ namespace ConsoleApp
                         exit = false;
                         break;
                     case 1:
-                        Summ();
+                        Urok1();
                         break;
                     case 2:
-                        Questionnaire();
+                        Urok2();
                         break;
                     case 3:
-                        Wage();
+                        Urok3();
                         break;
                     case 4:
-                        Authorization();
+                        Urok4();
                         break;
                     case 5:
-                        Calculater();
+                        Urok5();
                         break;
                     case 6:
+                        Urok6();
+                        break;
+                    case 7:
+                        Urok7();
+                        break;
+                    case 8:
+                        Urok8();
+                        break;
+                    default:
+                        Console.WriteLine("Введено не корректное число.");
+                        break;
+                }
+
+                Console.WriteLine("");
+            }
+        }
+
+        private static void Urok8()
+        {
+            throw new NotImplementedException();
+        }
+
+        private static void Urok7()
+        {
+            throw new NotImplementedException();
+        }
+
+        private static void Urok6()
+        {
+            throw new NotImplementedException();
+        }
+
+        private static void Urok5()
+        {
+            throw new NotImplementedException();
+        }
+
+        private static void Urok4()
+        {
+            throw new NotImplementedException();
+        }
+
+        private static void Urok3()
+        {
+            Boolean exit = true;
+
+            while (exit)
+            {
+                Console.WriteLine("Выберите программу");
+
+                Console.WriteLine(" 1 - Complex");
+                Console.WriteLine(" 2 - Подсчет суммы введеных чисел");
+
+                if (!Int32.TryParse(Console.ReadLine(), out var prog))
+                {
+                    Console.WriteLine("Ошибка ввода номера программы");
+                    continue;
+                }
+
+                switch (prog)
+                {
+                    case 1:
+                        WorkComplex();
+                        exit = false;
+                        break;
+                    case 2:
+                        SumOfNumber();
+                        exit = false;
+                        break;
+                    default:
+                        Console.WriteLine("Введено не корректное число.");
+                        break;
+                }
+            }
+        }
+
+        private static void Urok2()
+        {
+            Boolean exit = true;
+
+            while (exit)
+            {
+                Console.WriteLine("Выберите программу");
+
+                Console.WriteLine(" 1 - Авторизация");
+                Console.WriteLine(" 2 - Калькулятор");
+                Console.WriteLine(" 3 - Перевод десятичного числа в двоичное");
+                Console.WriteLine(" 7 - Complex");
+                Console.WriteLine(" 8 - Подсчет суммы введеных чисел");
+
+                if (!Int32.TryParse(Console.ReadLine(), out var prog))
+                {
+                    Console.WriteLine("Ошибка ввода номера программы");
+                    continue;
+                }
+
+                switch (prog)
+                {
+                    case 1:
+                        Authorization();
+                        exit = false;
+                        break;
+                    case 2:
+                        Calculater();
+                        exit = false;
+                        break;
+                    case 3:
                         Translations10To2();
+                        exit = false;
                         break;
                     case 7:
                         WorkComplex();
+                        exit = false;
                         break;
                     case 8:
                         SumOfNumber();
+                        exit = false;
                         break;
                     default:
-                        Console.WriteLine("Введено не корректное число. Выходим!");
+                        Console.WriteLine("Введено не корректное число.");
                         break;
                 }
-                Console.WriteLine("");
+            }
+        }
+
+        private static void Urok1()
+        {
+            Boolean exit = true;
+
+            while (exit)
+            {
+                Console.WriteLine("Выберите программу");
+                Console.WriteLine(" 1 - Сумматор");
+                Console.WriteLine(" 2 - Анкета");
+                Console.WriteLine(" 3 - Зарплата");
+
+                if (!Int32.TryParse(Console.ReadLine(), out var prog))
+                {
+                    Console.WriteLine("Ошибка ввода номера программы");
+                    continue;
+                }
+
+                switch (prog)
+                {
+                    case 1:
+                        Summ();
+                        exit = false;
+                        break;
+                    case 2:
+                        Questionnaire();
+                        exit = false;
+                        break;
+                    case 3:
+                        Wage();
+                        exit = false;
+                        break;
+                    default:
+                        Console.WriteLine("Введено не корректное число.");
+                        break;
+                }
             }
         }
 
