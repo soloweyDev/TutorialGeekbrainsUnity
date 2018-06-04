@@ -1,13 +1,12 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.IO;
-using System.Text;
 
 namespace ConsoleApp
 {
     class Program
     {
-        private static void Main(string[] args)
+        private static void Main()
         {
             Uroks();
         }
@@ -86,7 +85,51 @@ namespace ConsoleApp
 
         private static void Urok4()
         {
-            throw new NotImplementedException();
+            Boolean exit = true;
+
+            while (exit)
+            {
+                Console.WriteLine("Выберите программу");
+
+                Console.WriteLine(" 1 - Employer");
+                Console.WriteLine(" 2 - ");
+                Console.WriteLine(" 3 - ");
+
+                if (!Int32.TryParse(Console.ReadLine(), out var prog))
+                {
+                    Console.WriteLine("Ошибка ввода номера программы");
+                    continue;
+                }
+
+                switch (prog)
+                {
+                    case 1:
+                        WorkEmployer();
+                        exit = false;
+                        break;
+                    case 2:
+                        
+                        exit = false;
+                        break;
+                    case 3:
+                        
+                        exit = false;
+                        break;
+                    default:
+                        Console.WriteLine("Введено не корректное число.");
+                        break;
+                }
+            }
+        }
+
+        private static void WorkEmployer()
+        {
+            Employer employer = new Employer("Иван", "Раб", 3200);
+            Console.WriteLine(employer.Text());
+            employer.ChangePosition("Начальника");
+            Console.WriteLine(employer.Text());
+            employer.ChangeWage(5100);
+            Console.WriteLine(employer.Text());
         }
 
         private static void Urok3()
@@ -99,6 +142,7 @@ namespace ConsoleApp
 
                 Console.WriteLine(" 1 - Complex");
                 Console.WriteLine(" 2 - Подсчет суммы введеных чисел");
+                Console.WriteLine(" 3 - Работа с дробями (сложение и вычетание)");
 
                 if (!Int32.TryParse(Console.ReadLine(), out var prog))
                 {
@@ -116,11 +160,26 @@ namespace ConsoleApp
                         SumOfNumber();
                         exit = false;
                         break;
+                    case 3:
+                        WorkFraction();
+                        exit = false;
+                        break;
                     default:
                         Console.WriteLine("Введено не корректное число.");
                         break;
                 }
             }
+        }
+
+        private static void WorkFraction()
+        {
+            Fraction fraction1 = new Fraction(1, 2);
+            Fraction fraction2 = new Fraction(1, 3);
+
+            Fraction fraction3 = fraction1 + fraction2;
+            Console.WriteLine("Сумма {0}", fraction3);
+            Fraction fraction4 = fraction1 - fraction2;
+            Console.WriteLine("Разность {0}", fraction4);
         }
 
         private static void Urok2()
@@ -224,13 +283,13 @@ namespace ConsoleApp
         private static void SumOfNumber()
         {
             List<Int32> list = new List<int>();
-            Int32 summ = 0, temp = 0;
+            Int32 summ = 0;
 
             while (true)
             {
                 Console.WriteLine("Введите число, для выхода введите 0.");
-                
-                if (!Int32.TryParse(Console.ReadLine(), out temp))
+
+                if (!Int32.TryParse(Console.ReadLine(), out var temp))
                 {
                     Console.WriteLine("Ошибка ввода числа");
                     continue;
@@ -242,9 +301,9 @@ namespace ConsoleApp
                 {
                     break;
                 }
-                else if (temp < 0)
+
+                if (temp < 0)
                 {
-                    continue;
                 }
                 else
                 {
@@ -263,10 +322,8 @@ namespace ConsoleApp
 
         private static void Translations10To2()
         {
-            Int32 operand = 0;
-
             Console.WriteLine("Введите число для перевода в двоичную систему исчисления");
-            if (!Int32.TryParse(Console.ReadLine(), out operand))
+            if (!Int32.TryParse(Console.ReadLine(), out var operand))
             {
                 Console.WriteLine("Ошибка ввода числа");
                 return;
@@ -277,14 +334,12 @@ namespace ConsoleApp
 
         private static String Recursion10To2(Int32 operand)
         {
-            String str = String.Empty;
-
             if (operand < 2)
             {
                 return operand.ToString();
             }
 
-            str = (operand % 2).ToString();
+            var str = (operand % 2).ToString();
             operand /= 2;
 
             return Recursion10To2(operand) + str;
@@ -292,53 +347,42 @@ namespace ConsoleApp
 
         private static void Authorization()
         {
-            String password = String.Empty, login = String.Empty;
-
             Console.WriteLine("Введите логин");
-            login = Console.ReadLine();
+            var login = Console.ReadLine();
 
             Console.WriteLine("Введите пароль");
-            password = Console.ReadLine();
+            var password = Console.ReadLine();
 
-            if (Validation(login, password))
-            {
-                Console.WriteLine("Вы авторизовались");
-            }
-            else
-            {
-                Console.WriteLine("Вы не авторизовались");
-            }
+            Console.WriteLine(Validation(login, password) ? "Вы авторизовались" : "Вы не авторизовались");
         }
 
         private static Boolean Validation(String login, String password)
         {
-            String[] loginPassword = new String[2];
+            String[] loginPassword;
             using(StreamReader sr = new StreamReader("test.txt"))
             {
-                loginPassword = sr.ReadLine().Split(new char[] { '\t' });
+                loginPassword = sr.ReadLine()?.Split('\t');
             }
             
-            return (login == loginPassword[0] && password == loginPassword[1]) ? true : false;
+            return loginPassword != null && (login == loginPassword[0] && password == loginPassword[1]);
         }
 
         private static void Calculater()
         {
-            String operat = String.Empty;
-            Int32 operand1 = 0, operand2 = 0;
             Double result = 0;
 
             Console.WriteLine("Введите знак операции (+ - * /)");
-            operat = Console.ReadLine();
+            var operat = Console.ReadLine();
 
             Console.WriteLine("Введите первое число");
-            if (!Int32.TryParse(Console.ReadLine(), out operand1))
+            if (!Int32.TryParse(Console.ReadLine(), out var operand1))
             {
                 Console.WriteLine("Ошибка ввода числа");
                 return;
             }
 
             Console.WriteLine("Введите второе число");
-            if (!Int32.TryParse(Console.ReadLine(), out operand2))
+            if (!Int32.TryParse(Console.ReadLine(), out var operand2))
             {
                 Console.WriteLine("Ошибка ввода числа");
                 return;
@@ -373,38 +417,35 @@ namespace ConsoleApp
             const int day = 22;
             const int hour = 8;
 
-            int rate = 0;
             Console.WriteLine("Сколько заработ в месяц?");
-            rate = Int32.Parse(Console.ReadLine());
+            var rate = Int32.Parse(Console.ReadLine());
 
             Console.WriteLine("Заработ в год: {0}; в неделю: {1}; в день: {2}; в час {3}.", rate * year, (float)rate / day * week, (float)rate / day, (float)rate / day / hour);
         }
 
         private static void Summ()
         {
-            int a = 0, b = 0;
             Console.WriteLine("Введите первое число");
-            a = Int32.Parse(Console.ReadLine());
+            var a = Int32.Parse(Console.ReadLine());
             Console.WriteLine("Введите второе число");
-            b = Int32.Parse(Console.ReadLine());
+            var b = Int32.Parse(Console.ReadLine());
             Console.WriteLine("Сумма чисел равна {0}", a + b);
         }
 
         private static void Questionnaire()
         {
-            string name, lastname, age, date, h, w;
             Console.WriteLine("Ваше имя");
-            name = Console.ReadLine();
+            var name = Console.ReadLine();
             Console.WriteLine("Ваша фамилия");
-            lastname = Console.ReadLine();
+            var lastname = Console.ReadLine();
             Console.WriteLine("Ваш возраст");
-            age = Console.ReadLine();
+            var age = Console.ReadLine();
             Console.WriteLine("Ваш город рождения");
-            date = Console.ReadLine();
+            var date = Console.ReadLine();
             Console.WriteLine("Ваш рост");
-            h = Console.ReadLine();
+            var h = Console.ReadLine();
             Console.WriteLine("Ваш вес");
-            w = Console.ReadLine();
+            var w = Console.ReadLine();
 
             string result = name + " " + lastname + " " + age + " " + date + " " + h + " " + w;
             Console.WriteLine(result);
@@ -430,6 +471,63 @@ namespace ConsoleApp
         public static Complex operator -(Complex left, Complex rigth)
         {
             return new Complex(left.Real - rigth.Real, left.Mag - rigth.Mag);
+        }
+    }
+
+    public class Fraction
+    {
+        private readonly Int32 _numerator;
+        private readonly Int32 _denominator;
+
+        public Fraction(Int32 numerator, Int32 denominator)
+        {
+            _numerator = numerator;
+            _denominator = denominator;
+        }
+
+        public static Fraction operator +(Fraction left, Fraction rigth)
+        {
+            if (left._denominator == rigth._denominator)
+                return new Fraction(left._numerator + rigth._numerator, left._denominator);
+
+            return new Fraction(left._numerator * rigth._denominator + rigth._numerator * left._denominator, left._denominator * rigth._denominator);
+        }
+
+        public static Fraction operator -(Fraction left, Fraction rigth)
+        {
+            if (left._denominator == rigth._denominator)
+                return new Fraction(left._numerator - rigth._numerator, left._denominator);
+
+            return new Fraction(left._numerator * rigth._denominator - rigth._numerator * left._denominator, left._denominator * rigth._denominator);
+        }
+    }
+
+    public class Employer
+    {
+        private readonly string _name;
+        private string _position;
+        private Int32 _wage;
+
+        public Employer(string name, string position, Int32 wage)
+        {
+            _name = name;
+            _position = position;
+            _wage = wage;
+        }
+
+        public void ChangePosition(string position)
+        {
+            _position = position;
+        }
+
+        public void ChangeWage(Int32 wage)
+        {
+            _wage = wage;
+        }
+
+        public string Text()
+        {
+            return String.Format("Имя: {0}, должность: {1}, зарплата: {2}", _name, _position, _wage);
         }
     }
 }
