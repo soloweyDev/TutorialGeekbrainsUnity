@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.IO;
+using System.Linq;
 
 namespace ConsoleApp
 {
@@ -93,7 +94,7 @@ namespace ConsoleApp
 
                 Console.WriteLine(" 1 - Employer");
                 Console.WriteLine(" 2 - Средняя зарплата");
-                Console.WriteLine(" 3 - ");
+                Console.WriteLine(" 3 - Отсев экстремальных оценок");
 
                 if (!Int32.TryParse(Console.ReadLine(), out var prog))
                 {
@@ -112,13 +113,40 @@ namespace ConsoleApp
                         exit = false;
                         break;
                     case 3:
-                        
+                        EliminationExtremeGrade();
                         exit = false;
                         break;
                     default:
                         Console.WriteLine("Введено не корректное число.");
                         break;
                 }
+            }
+        }
+
+        private static void EliminationExtremeGrade()
+        {
+            const Int32 num = 6;
+
+            List<Int32> list = new List<Int32>();
+            Random random = new Random();
+            Int32 min = 0, max = 0;
+
+            for (int i = 0; i < num; i++)
+            {
+                Int32 value = random.Next(1, 11);
+                list.Add(value);
+                Console.WriteLine("{0} - {1}", i + 1, value);
+            }
+
+            min = list.Min();
+            max = list.Max();
+
+            list.Remove(min);
+            list.Remove(max);
+
+            foreach (var i in list)
+            {
+                Console.WriteLine(i);
             }
         }
 
