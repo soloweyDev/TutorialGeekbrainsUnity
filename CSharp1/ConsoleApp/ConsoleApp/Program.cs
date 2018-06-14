@@ -92,7 +92,7 @@ namespace ConsoleApp
                 Console.WriteLine("Выберите программу");
 
                 Console.WriteLine(" 1 - Employer");
-                Console.WriteLine(" 2 - ");
+                Console.WriteLine(" 2 - Средняя зарплата");
                 Console.WriteLine(" 3 - ");
 
                 if (!Int32.TryParse(Console.ReadLine(), out var prog))
@@ -108,7 +108,7 @@ namespace ConsoleApp
                         exit = false;
                         break;
                     case 2:
-                        
+                        AverageWage();
                         exit = false;
                         break;
                     case 3:
@@ -120,6 +120,25 @@ namespace ConsoleApp
                         break;
                 }
             }
+        }
+
+        private static void AverageWage()
+        {
+            const Int32 numMan = 7;
+
+            List<Int32> list = new List<Int32>();
+            Random random = new Random();
+            Int32 sum = 0;
+
+            for (int i = 0; i < numMan; i++)
+            {
+                Int32 value = random.Next(1, 4) * 10000;
+                list.Add(value);
+                Console.WriteLine("{0} - {1}", i + 1, value);
+                sum += value;
+            }
+
+            Console.WriteLine("Средня зарплата - {0}", sum / numMan);
         }
 
         private static void WorkEmployer()
