@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using System.Text.RegularExpressions;
 
 namespace ConsoleApp
 {
@@ -81,7 +82,119 @@ namespace ConsoleApp
 
         private static void Urok5()
         {
-            throw new NotImplementedException();
+            Boolean exit = true;
+
+            while (exit)
+            {
+                Console.WriteLine("Выберите программу");
+
+                Console.WriteLine(" 1 - Создание логина");
+                Console.WriteLine(" 2 - Создание пароля");
+                Console.WriteLine(" 3 - ");
+
+                if (!Int32.TryParse(Console.ReadLine(), out var prog))
+                {
+                    Console.WriteLine("Ошибка ввода номера программы");
+                    continue;
+                }
+
+                switch (prog)
+                {
+                    case 1:
+                        CreateLogin();
+                        exit = false;
+                        break;
+                    case 2:
+                        CreatePassword();
+                        exit = false;
+                        break;
+                    case 3:
+                        ;
+                        exit = false;
+                        break;
+                    default:
+                        Console.WriteLine("Введено не корректное число.");
+                        break;
+                }
+            }
+        }
+
+        private static void CreatePassword()
+        {
+            Regex regex = new Regex("/[a-zA-Z]");
+            while (true)
+            {
+                Console.WriteLine("Введите пароль.");
+                var password = Console.ReadLine();
+
+                if (password.Length < 5 || Int32.TryParse(password, out Int32 test) || regex.IsMatch(password))
+                {
+                    Console.WriteLine("Пароль не сложный.");
+                    Console.WriteLine("Хотите изменить пароль? (y - да)");
+                    var answer = Console.ReadKey();
+                    if (answer.Key != ConsoleKey.Y)
+                    {
+                        continue;
+                    }
+                }
+
+                int digital = 0, upper = 0;
+                foreach (var ch in password)
+                {
+                    if (Char.IsDigit(ch))
+                        digital++;
+                    else if (Char.IsUpper(ch))
+                        upper++;
+                }
+
+                if (password.Length < 10 || upper == 0 || digital < 3)
+                {
+                    Console.WriteLine("Пароль средней сложности.");
+                    Console.WriteLine("Хотите изменить пароль? (y - да)");
+                    var answer = Console.ReadKey();
+                    if (answer.Key == ConsoleKey.Y)
+                    {
+                        Console.WriteLine("");
+                        continue;
+                    }
+                    else
+                    {
+                        break;
+                    }
+                }
+                else
+                {
+                    Console.WriteLine("Пароль сложный.");
+                }
+
+                break;
+            }
+        }
+
+        private static void CreateLogin()
+        {
+            while (true)
+            {
+                Console.WriteLine("Введите логин. Логин состоит только буквы и цифры, от 2-х до 10-ти символов, при этом цифра не может быть первой.");
+                var login = Console.ReadLine();
+
+                if (login.Length < 2 && login.Length > 10)
+                {
+                    Console.WriteLine("Ошибка ввода логина! Попробуйте еще раз.");
+                    continue;
+                }
+
+                if (Char.IsDigit(login[0]))
+                {
+                    Console.WriteLine("Ошибка ввода логина! Попробуйте еще раз.");
+                    continue;
+                }
+                else
+                {
+                    Console.WriteLine("Логин принят.");
+                    break;
+                }
+            }
         }
 
         private static void Urok4()
