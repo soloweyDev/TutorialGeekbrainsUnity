@@ -9,7 +9,9 @@ namespace CSharp2
             Form form = new Form();
             form.Height = 600;
             form.Width = 800;
+            Game.Init(form);
             form.Show();
+            Game.Draw();
             Application.Run(form);
         }
     }
