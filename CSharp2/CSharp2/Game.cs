@@ -50,7 +50,7 @@ namespace CSharp2
 
             for (int i = 24; i < 44; ++i)
             {
-                int x = StarSpace.Rnd.Next(20, Width - 20);
+                int x = StarSpace.Rnd.Next(20, Width + 50);
                 int y = StarSpace.Rnd.Next(20, Height - 20);
                 objs[i] = new StarSpace(new Point(x, y), new Point(-3, 0), new Size(4, 4));
             }
