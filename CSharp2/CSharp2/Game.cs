@@ -38,9 +38,22 @@ namespace CSharp2
 
         static public void Load()
         {
-            objs = new BaseObject[26];
-            for (int i = 0; i < objs.Length; i++)
+            objs = new BaseObject[44];
+            for (int i = 0; i < 8; i++)
                 objs[i] = new BaseObject(new Point(400, i * 20 + 20), new Point(15-i, 15-i), new Size(20, 20));
+
+            for (int i = 8; i < 16; i++)
+                objs[i] = new RectangleO(new Point(400, i * 20 + 20), new Point(15 - i, 15 - i), new Size(20, 20));
+
+            for (int i = 16; i < 24; i++)
+                objs[i] = new PolygonO(new Point(400, i * 20 + 20), new Point(15 - i, 15 - i), new Size(20, 20));
+
+            for (int i = 24; i < 44; ++i)
+            {
+                int x = StarSpace.Rnd.Next(20, Width - 20);
+                int y = StarSpace.Rnd.Next(20, Height - 20);
+                objs[i] = new StarSpace(new Point(x, y), new Point(-3, 0), new Size(4, 4));
+            }
         }
 
         static public void Draw()
