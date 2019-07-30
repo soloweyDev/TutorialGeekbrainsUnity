@@ -6,6 +6,10 @@ namespace CSharp2
     {
         static void Main(string[] args)
         {
+            SplashScreen splash = new SplashScreen();
+            splash.Init();
+            splash.Draw();
+
             Form form = new Form();
             form.Height = 600;
             form.Width = 800;
