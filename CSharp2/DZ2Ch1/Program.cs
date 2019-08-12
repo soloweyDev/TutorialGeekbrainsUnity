@@ -16,14 +16,14 @@ namespace DZ2Ch1
             Console.WriteLine();
 
             Console.WriteLine("Array sorted");
-            workers[0].Sort(workers);
+            Worker.Sort(workers);
             foreach (Worker worker in workers)
             {
                 Console.Write("{0}, ", worker.WageRate);
             }
         }
 
-        public abstract class Worker : IArraySort
+        public abstract class Worker
         {
             public double WageRate { get; set; }
 
@@ -40,7 +40,7 @@ namespace DZ2Ch1
 
             public abstract double Salary();
 
-            public void Sort(object[] workers)
+            public static void Sort(object[] workers)
             {
                 Array.Sort(workers);
             }
