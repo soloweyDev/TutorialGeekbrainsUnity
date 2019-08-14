@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections;
 
 namespace DZ2Ch1
 {
@@ -6,7 +7,10 @@ namespace DZ2Ch1
     {
         static void Main(string[] args)
         {
-            Worker[] workers = { new WorkerFixedSalary(1000.0), new WorkerFixedSalary(1100.0), new WorkerHourlyWage(10.0), new WorkerHourlyWage(20.0), new WorkerHourlyWage(15.0), };
+
+            Worker[] workers = { new WorkerFixedSalary("WorkerFixedSalary", "Frst", 1000.0), new WorkerFixedSalary("WorkerFixedSalary", "Second", 1100.0),
+                new WorkerHourlyWage("WorkerHourlyWage", "Frst", 10.0), new WorkerHourlyWage("WorkerHourlyWage", "Second", 20.0), new WorkerHourlyWage("WorkerHourlyWage", "Third", 15.0) };
+
             Console.WriteLine("Array not sorted");
             foreach (Worker worker in workers)
             {
@@ -17,14 +21,16 @@ namespace DZ2Ch1
 
             Console.WriteLine("Array sorted");
             Worker.Sort(workers);
-            foreach (Worker worker in workers)
-            {
-                Console.Write("{0}, ", worker.WageRate);
-            }
+            Worker.PrintWokers(workers);
+
+            if (workers.Length == 5)
+                throw new MyOwnException("Просто тест Exception");
         }
 
         public abstract class Worker
         {
+            protected string Name { get; set; }
+            protected string LastName { get; set; }
             public double WageRate { get; set; }
 
             public int CompareTo(object obj)
@@ -40,16 +46,26 @@ namespace DZ2Ch1
 
             public abstract double Salary();
 
-            public static void Sort(object[] workers)
+            public static void Sort(Worker[] workers)
             {
-                Array.Sort(workers);
+                Array.Sort(workers, new ComparerWoker());
+            }
+
+            public static void PrintWokers(Worker[] workers)
+            {
+                foreach (Worker worker in workers)
+                {
+                    Console.WriteLine("Name: {0} {1} WageRate: {2}", worker.Name, worker.LastName, worker.WageRate);
+                }
             }
         }
 
         public class WorkerFixedSalary : Worker
         {
-            public WorkerFixedSalary(double wagerate)
+            public WorkerFixedSalary(string name, string lastName, double wagerate) 
             {
+                Name = name;
+                LastName = lastName;
                 WageRate = wagerate;
             }
 
@@ -62,8 +78,10 @@ namespace DZ2Ch1
 
         public class WorkerHourlyWage : Worker
         {
-            public WorkerHourlyWage(double wagerate)
+            public WorkerHourlyWage(string name, string lastName, double wagerate)
             {
+                Name = name;
+                LastName = lastName;
                 WageRate = wagerate;
             }
 
@@ -74,9 +92,30 @@ namespace DZ2Ch1
             }
         }
 
-        public interface IArraySort : IComparable
+        public interface IArraySort<in T> : IComparable<T>
         {
-            void Sort(object[] workers);
+            void Sort(T[] workers);
+        }
+
+        public class ComparerWoker : IComparer
+        {
+            public int Compare(object x, object y)
+            {
+                Worker worker1 = x as Worker;
+                Worker worker2 = y as Worker;
+
+                if (worker1.WageRate < worker2.WageRate)
+                    return -1;
+                else if (worker1.WageRate > worker2.WageRate)
+                    return 1;
+
+                return 0;
+            }
+        }
+
+        public class MyOwnException : Exception
+        {
+            public MyOwnException(string massage) : base(massage) { }
         }
     }
 }
