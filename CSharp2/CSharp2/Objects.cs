@@ -1,14 +1,16 @@
-﻿using System;
-using System.Drawing;
+﻿using System.Drawing;
 
 namespace CSharp2
 {
+    delegate void Messsage();
+
     interface ICollision
     {
         
         bool Collision(ICollision obj);
         Rectangle Rect { get; }
     }
+
     abstract class BaseObject:ICollision
     {
         protected Point pos;
@@ -23,20 +25,12 @@ namespace CSharp2
         }
 
         public abstract void Draw();
-
         public abstract void Update();
-        //{
-        //    pos.X = pos.X + dir.X;
-        //    pos.Y = pos.Y + dir.Y;
-        //    if (pos.X < 5 || pos.X > Game.Width - 20) dir.X = -dir.X;
-        //    if (pos.Y < 5 || pos.Y > Game.Height - 20) dir.Y = -dir.Y;
-        //}
 
         public override string ToString()
         {
             return "Pos:" + pos.ToString() + " Dir" + dir.ToString() + " Size:" + size.ToString();
         }
-
 
         public bool Collision(ICollision o)
         {
@@ -51,39 +45,33 @@ namespace CSharp2
 
     class Star: BaseObject
     {
-        Image img = Image.FromFile("pictures\\star.png"); 
+        readonly Image img = Image.FromFile("pictures\\star.png"); 
 
         public Star(Point pos, Point dir, Size size):base(pos,dir,size)
         {
-
         }
 
         public override void Draw()
         {
-            //Game.buffer.Graphics.DrawRectangle(Pens.White, pos.X, pos.Y, size.Width, size.Height);
-            Game.buffer.Graphics.DrawImage(img, pos);
+            Game.buffer.Graphics.DrawImage(img, pos.X, pos.Y, 10, 10);
         }
 
         public override void Update()
         {
-            //base.Update();
             pos.X = pos.X + dir.X;
-            //pos.Y = pos.Y + dir.Y;
-            if (pos.X < 0) //dir.X = -dir.X;
+            if (pos.X < 0)
             {
                 pos.X = 1000;
                 pos.Y = Game.rnd.Next(0, Game.Height);
                 dir.X = -Game.rnd.Next(1, 10);
             }
-            //if (pos.X > Game.Width) dir.X = -dir.X;
-            //if (pos.Y < 0) dir.Y = -dir.Y;
-            //if (pos.Y > Game.Height) dir.Y = -dir.Y;
         }
     }
 
     class Asteroid: BaseObject
     {
         int power;
+        readonly Image img = Image.FromFile("pictures\\asteroid.png");
 
         public int Power
         {
@@ -98,37 +86,86 @@ namespace CSharp2
 
         public override void Draw()
         {
-            Game.buffer.Graphics.FillEllipse(Brushes.Wheat, pos.X, pos.Y, size.Width, size.Height);
+            Game.buffer.Graphics.DrawImage(img, pos);
         }
         public override void Update()
         {
             pos.X = pos.X + dir.X;
-            if (pos.X < 0) //dir.X = -dir.X;
+            if (pos.X < 0)
             {
                 pos.X = 1000;
                 pos.Y = Game.rnd.Next(0, Game.Height);
                 dir.X = -Game.rnd.Next(1, 10);
             }
         }
-
     }
 
     class Bullet : BaseObject
     {
+        readonly Image img = Image.FromFile("pictures\\bullet.png");
+        public bool remove = false;
+
         public Bullet(Point pos, Point dir, Size size) : base(pos, dir, size)
         {
         }
 
         public override void Draw()
         {
-            Game.buffer.Graphics.DrawRectangle(Pens.OrangeRed, pos.X, pos.Y, size.Width, size.Height);
+            Game.buffer.Graphics.DrawImage(img, pos);
         }
 
         public override void Update()
         {
             pos.X = pos.X + 3;
+
+            if (pos.X > Game.Width + 5)
+            {
+                Game.Bullets.Remove(this);
+                remove = true;
+            }
         }
     }
 
+    class Ship : BaseObject
+    {
+        readonly Image img = Image.FromFile("pictures\\gamer.png");
 
+        public static event Messsage MessageDie;
+
+        public int Energy { get; internal set; }
+
+        internal void EnergyLow(int n)
+        {
+            Energy -= n;
+        }
+
+        public Ship(Point pos, Point dir, Size size) : base(pos, dir, size)
+        {
+            Energy = 200;
+        }
+
+        public override void Draw()
+        {
+            Game.buffer.Graphics.DrawImage(img, pos);
+        }
+
+        public override void Update()
+        {
+        }
+
+        internal void Up()
+        {
+            if (pos.Y > 0) pos.Y = pos.Y - dir.Y;
+        }
+
+        internal void Down()
+        {
+            if (pos.Y < Game.Height - 20) pos.Y = pos.Y + dir.Y;
+        }
+
+        internal void Die()
+        {
+            if (MessageDie != null) MessageDie();
+        }
+    }
 }
