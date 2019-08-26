@@ -70,14 +70,9 @@ namespace CSharp2
 
     class Asteroid: BaseObject
     {
-        int power;
         readonly Image img = Image.FromFile("pictures\\asteroid.png");
 
-        public int Power
-        {
-            get { return power; }
-            set { power = value; }
-        }
+        public int Power { get; set; }
 
         public Asteroid(Point pos, Point dir, Size size): base(pos,dir,size)
         {
@@ -105,6 +100,8 @@ namespace CSharp2
         readonly Image img = Image.FromFile("pictures\\bullet.png");
         public bool remove = false;
 
+        public event Messsage OnCount;
+
         public Bullet(Point pos, Point dir, Size size) : base(pos, dir, size)
         {
         }
@@ -123,6 +120,11 @@ namespace CSharp2
                 Game.Bullets.Remove(this);
                 remove = true;
             }
+        }
+
+        public void Count()
+        {
+            OnCount();
         }
     }
 
@@ -165,7 +167,7 @@ namespace CSharp2
 
         internal void Die()
         {
-            if (MessageDie != null) MessageDie();
+            MessageDie?.Invoke();
         }
     }
 }

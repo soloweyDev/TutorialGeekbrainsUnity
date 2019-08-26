@@ -8,9 +8,9 @@ namespace CSharp2
     static public class Game
     {
         static BaseObject[] objs;
-        static List<Bullet> bullets = new List<Bullet>();
         static Ship ship;
-        static Asteroid[] asteroids;
+        static List<Asteroid> asteroids = new List<Asteroid>();
+        static int asteroidsNum = 3;
 
         static BufferedGraphicsContext context;
         static public BufferedGraphics buffer;
@@ -19,9 +19,10 @@ namespace CSharp2
 
         static public int Width { get; set; }
         static public int Height { get; set; }
-        internal static List<Bullet> Bullets { get => bullets; }
+        internal static List<Bullet> Bullets { get; } = new List<Bullet>();
 
         static int score;
+        static public int BulletCount { get; set; }
 
         static Game()
         {
@@ -45,9 +46,20 @@ namespace CSharp2
 
         private static void Form_KeyDown(object sender, KeyEventArgs e)
         {
-            if (e.KeyCode == Keys.ControlKey) Bullets.Add(new Bullet(new Point(ship.Rect.X + 10, ship.Rect.Y + 4), new Point(4, 0), new Size(4, 1)));
+            if (e.KeyCode == Keys.ControlKey)
+            {
+                Bullet bullet = new Bullet(new Point(ship.Rect.X + 10, ship.Rect.Y + 4), new Point(4, 0), new Size(4, 1));
+                bullet.OnCount += Bullet_OnCount;
+                bullet.Count();
+                Bullets.Add(bullet);
+            }
             if (e.KeyCode == Keys.Up) ship.Up();
             if (e.KeyCode == Keys.Down) ship.Down();
+        }
+
+        private static void Bullet_OnCount()
+        {
+            BulletCount++;
         }
 
         private static void Timer_Tick(object sender, EventArgs e)
@@ -60,18 +72,18 @@ namespace CSharp2
         {
             score = 0;
             objs = new BaseObject[30];
-            asteroids = new Asteroid[3];
             for (int i = 0; i < objs.Length; i++)
             {
                 int r = rnd.Next(5, Width - 10);
-                objs[i] = new Star(new Point(500, Game.rnd.Next(0, Game.Height - 10)), new Point(-r, 0), new Size(3, 3));
+                objs[i] = new Star(new Point(500, rnd.Next(0, Height - 10)), new Point(-r, 0), new Size(3, 3));
             }
-            for (int i = 0; i < asteroids.Length; i++)
+            for (int i = 0; i < asteroidsNum; i++)
             {
-                asteroids[i] = new Asteroid(new Point(800, Game.rnd.Next(0, Game.Height - 10)), new Point(-5, 0), new Size(15, 25));
+                asteroids.Add(new Asteroid(new Point(800, rnd.Next(0, Height - 10)), new Point(-5, 0), new Size(15, 25)));
             }
-            ship = new Ship(new Point(10, Game.Height / 2), new Point(5, 5), new Size(10, 10));
+            ship = new Ship(new Point(10, Height / 2), new Point(5, 5), new Size(10, 10));
         }
+
         static public void Draw()
         {
             buffer.Graphics.Clear(Color.Black);
@@ -87,6 +99,7 @@ namespace CSharp2
             ship.Draw();
             buffer.Graphics.DrawString("Energy: " + ship.Energy, SystemFonts.DefaultFont, Brushes.White, 0, 0);
             buffer.Graphics.DrawString("Score: " + score, SystemFonts.DefaultFont, Brushes.White, Width - 100, 0);
+            buffer.Graphics.DrawString("Bullet: " + BulletCount, SystemFonts.DefaultFont, Brushes.White, Width - 100, 20);
             buffer.Render();
         }
 
@@ -105,36 +118,48 @@ namespace CSharp2
                 }
             }
 
-            for (int i = 0; i < asteroids.Length; ++i)
+            if (asteroids.Count == 0)
             {
-                if (asteroids[i] != null)
+                asteroidsNum++;
+                for (int i = 0; i < asteroidsNum; i++)
                 {
-                    asteroids[i].Update();
+                    asteroids.Add(new Asteroid(new Point(800, rnd.Next(0, Height - 10)), new Point(-5, 0), new Size(15, 25)));
+                }
+            }
+
+            foreach (Asteroid asteroid in asteroids)
+            {
+                if (asteroid != null)
+                {
+                    asteroid.Update();
+
                     if (Bullets != null)
                     {
                         foreach (Bullet bullet in Bullets)
                         {
-                            if (bullet.Collision(asteroids[i]))
+                            if (bullet.Collision(asteroid))
                             {
                                 System.Media.SystemSounds.Hand.Play();
-                                asteroids[i] = new Asteroid(new Point(800, Game.rnd.Next(0, Game.Height - 30)), new Point(-5, 0), new Size(15, 25));
+                                asteroids.Remove(asteroid);
                                 Bullets.Remove(bullet);
                                 score++;
                                 return;
                             }
                         }
                     }
-                    if (ship.Collision(asteroids[i]))
+
+                    if (ship.Collision(asteroid))
                     {
                         ship.EnergyLow(rnd.Next(1, 10));
                         System.Media.SystemSounds.Asterisk.Play();
-                        asteroids[i] = new Asteroid(new Point(800, Game.rnd.Next(0, Game.Height - 30)), new Point(-5, 0), new Size(15, 25));
+                        asteroids.Remove(asteroid);
                         if (ship.Energy <= 0)
                         {
                             ship.Energy = 0;
                             Draw();
                             ship.Die();
                         }
+                        return;
                     }
                 }
             }

@@ -35,10 +35,10 @@ namespace CSharp2
                 buffer.Graphics.FillRectangle(Brushes.Green, new RectangleF(3, 150, 3 + i, 9));
 
                 buffer.Render();
-                System.Threading.Thread.Sleep(200);
+                System.Threading.Thread.Sleep(50);
             }
 
-            System.Threading.Thread.Sleep(2000);
+            System.Threading.Thread.Sleep(200);
             form.Hide();
         }
     }
