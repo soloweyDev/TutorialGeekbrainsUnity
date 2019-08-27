@@ -50,8 +50,8 @@ namespace CSharp2
             {
                 Bullet bullet = new Bullet(new Point(ship.Rect.X + 10, ship.Rect.Y + 4), new Point(4, 0), new Size(4, 1));
                 bullet.OnCount += Bullet_OnCount;
-                bullet.Count();
                 Bullets.Add(bullet);
+                bullet.Count();
             }
             if (e.KeyCode == Keys.Up) ship.Up();
             if (e.KeyCode == Keys.Down) ship.Down();
