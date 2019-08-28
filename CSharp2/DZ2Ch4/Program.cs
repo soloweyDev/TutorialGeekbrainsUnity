@@ -87,8 +87,9 @@ namespace DZ2Ch4
                 int value;
                 if (dic.TryGetValue(key, out value))
                 {
-                    dic.Remove(key);
-                    dic.Add(key, ++value);
+                    //dic.Remove(key);
+                    //dic.Add(key, ++value);
+                    dic[key]++;
                 }
                 else
                 {
