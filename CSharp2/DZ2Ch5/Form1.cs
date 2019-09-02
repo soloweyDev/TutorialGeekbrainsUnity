@@ -127,5 +127,13 @@ namespace DZ2Ch5
             DateTime result = new DateTime().AddDays(delta);
             lblResult.Text = string.Format("Продолжительность жизни: {0} лет {1} месяцев {2} дней", result.Year -1, result.Month -1, result.Day -1 );
         }
+
+        private void btnConnect_Click(object sender, EventArgs e)
+        {
+            var Val_code = "R01235"; // доллар США
+            var exchangeRates = new DailyInfoServ.DailyInfo();
+            var str_xml = exchangeRates.GetCursDynamicXML(DateFrom.Value, DateTo.Value, Val_code);
+            tbConnectXml.Text = str_xml.ToString();
+        }
     }
 }

@@ -75,33 +75,39 @@
             this.helpToolStripButton = new System.Windows.Forms.ToolStripButton();
             this.timer2 = new System.Windows.Forms.Timer(this.components);
             this.tabPage2 = new System.Windows.Forms.TabPage();
-            this.trackBar1 = new System.Windows.Forms.TrackBar();
-            this.groupBox1 = new System.Windows.Forms.GroupBox();
-            this.lblTimer = new System.Windows.Forms.Label();
-            this.textBox1 = new System.Windows.Forms.TextBox();
             this.btnStart = new System.Windows.Forms.Button();
+            this.groupBox1 = new System.Windows.Forms.GroupBox();
+            this.textBox1 = new System.Windows.Forms.TextBox();
+            this.lblTimer = new System.Windows.Forms.Label();
+            this.trackBar1 = new System.Windows.Forms.TrackBar();
             this.tabPage1 = new System.Windows.Forms.TabPage();
+            this.rtbNotepad = new System.Windows.Forms.RichTextBox();
             this.toolStrip2 = new System.Windows.Forms.ToolStrip();
             this.tsbCurrentTimeInsert = new System.Windows.Forms.ToolStripButton();
-            this.rtbNotepad = new System.Windows.Forms.RichTextBox();
             this.tabControl1 = new System.Windows.Forms.TabControl();
             this.tabPage3 = new System.Windows.Forms.TabPage();
-            this.dtpBirth = new System.Windows.Forms.DateTimePicker();
-            this.dtpDeath = new System.Windows.Forms.DateTimePicker();
-            this.label1 = new System.Windows.Forms.Label();
-            this.label3 = new System.Windows.Forms.Label();
-            this.lblResult = new System.Windows.Forms.Label();
             this.button1 = new System.Windows.Forms.Button();
+            this.lblResult = new System.Windows.Forms.Label();
+            this.label3 = new System.Windows.Forms.Label();
+            this.label1 = new System.Windows.Forms.Label();
+            this.dtpDeath = new System.Windows.Forms.DateTimePicker();
+            this.dtpBirth = new System.Windows.Forms.DateTimePicker();
+            this.tabPage4 = new System.Windows.Forms.TabPage();
+            this.btnConnect = new System.Windows.Forms.Button();
+            this.tbConnectXml = new System.Windows.Forms.TextBox();
+            this.DateFrom = new System.Windows.Forms.DateTimePicker();
+            this.DateTo = new System.Windows.Forms.DateTimePicker();
             this.menuStrip1.SuspendLayout();
             this.statusStrip1.SuspendLayout();
             this.toolStrip1.SuspendLayout();
             this.tabPage2.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.trackBar1)).BeginInit();
             this.groupBox1.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.trackBar1)).BeginInit();
             this.tabPage1.SuspendLayout();
             this.toolStrip2.SuspendLayout();
             this.tabControl1.SuspendLayout();
             this.tabPage3.SuspendLayout();
+            this.tabPage4.SuspendLayout();
             this.SuspendLayout();
             // 
             // menuStrip1
@@ -472,15 +478,15 @@
             this.tabPage2.Text = "Напоминалка";
             this.tabPage2.UseVisualStyleBackColor = true;
             // 
-            // trackBar1
+            // btnStart
             // 
-            this.trackBar1.Location = new System.Drawing.Point(9, 25);
-            this.trackBar1.Maximum = 600;
-            this.trackBar1.Name = "trackBar1";
-            this.trackBar1.Orientation = System.Windows.Forms.Orientation.Vertical;
-            this.trackBar1.Size = new System.Drawing.Size(45, 249);
-            this.trackBar1.TabIndex = 0;
-            this.trackBar1.Scroll += new System.EventHandler(this.trackBar1_Scroll);
+            this.btnStart.Location = new System.Drawing.Point(70, 227);
+            this.btnStart.Name = "btnStart";
+            this.btnStart.Size = new System.Drawing.Size(75, 23);
+            this.btnStart.TabIndex = 2;
+            this.btnStart.Text = "Start";
+            this.btnStart.UseVisualStyleBackColor = true;
+            this.btnStart.Click += new System.EventHandler(this.btnStart_Click);
             // 
             // groupBox1
             // 
@@ -493,6 +499,14 @@
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Инфо";
             // 
+            // textBox1
+            // 
+            this.textBox1.Location = new System.Drawing.Point(97, 26);
+            this.textBox1.Multiline = true;
+            this.textBox1.Name = "textBox1";
+            this.textBox1.Size = new System.Drawing.Size(162, 116);
+            this.textBox1.TabIndex = 1;
+            // 
             // lblTimer
             // 
             this.lblTimer.AutoSize = true;
@@ -502,23 +516,15 @@
             this.lblTimer.TabIndex = 0;
             this.lblTimer.Text = "label1";
             // 
-            // textBox1
+            // trackBar1
             // 
-            this.textBox1.Location = new System.Drawing.Point(97, 26);
-            this.textBox1.Multiline = true;
-            this.textBox1.Name = "textBox1";
-            this.textBox1.Size = new System.Drawing.Size(162, 116);
-            this.textBox1.TabIndex = 1;
-            // 
-            // btnStart
-            // 
-            this.btnStart.Location = new System.Drawing.Point(70, 227);
-            this.btnStart.Name = "btnStart";
-            this.btnStart.Size = new System.Drawing.Size(75, 23);
-            this.btnStart.TabIndex = 2;
-            this.btnStart.Text = "Start";
-            this.btnStart.UseVisualStyleBackColor = true;
-            this.btnStart.Click += new System.EventHandler(this.btnStart_Click);
+            this.trackBar1.Location = new System.Drawing.Point(9, 25);
+            this.trackBar1.Maximum = 600;
+            this.trackBar1.Name = "trackBar1";
+            this.trackBar1.Orientation = System.Windows.Forms.Orientation.Vertical;
+            this.trackBar1.Size = new System.Drawing.Size(45, 249);
+            this.trackBar1.TabIndex = 0;
+            this.trackBar1.Scroll += new System.EventHandler(this.trackBar1_Scroll);
             // 
             // tabPage1
             // 
@@ -531,6 +537,15 @@
             this.tabPage1.TabIndex = 0;
             this.tabPage1.Text = "Блокнот";
             this.tabPage1.UseVisualStyleBackColor = true;
+            // 
+            // rtbNotepad
+            // 
+            this.rtbNotepad.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.rtbNotepad.Location = new System.Drawing.Point(3, 28);
+            this.rtbNotepad.Name = "rtbNotepad";
+            this.rtbNotepad.Size = new System.Drawing.Size(642, 288);
+            this.rtbNotepad.TabIndex = 1;
+            this.rtbNotepad.Text = "";
             // 
             // toolStrip2
             // 
@@ -551,20 +566,12 @@
             this.tsbCurrentTimeInsert.Text = "Time";
             this.tsbCurrentTimeInsert.Click += new System.EventHandler(this.tsbCurrentTimeInsert_Click);
             // 
-            // rtbNotepad
-            // 
-            this.rtbNotepad.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.rtbNotepad.Location = new System.Drawing.Point(3, 28);
-            this.rtbNotepad.Name = "rtbNotepad";
-            this.rtbNotepad.Size = new System.Drawing.Size(642, 288);
-            this.rtbNotepad.TabIndex = 1;
-            this.rtbNotepad.Text = "";
-            // 
             // tabControl1
             // 
             this.tabControl1.Controls.Add(this.tabPage1);
             this.tabControl1.Controls.Add(this.tabPage2);
             this.tabControl1.Controls.Add(this.tabPage3);
+            this.tabControl1.Controls.Add(this.tabPage4);
             this.tabControl1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.tabControl1.Location = new System.Drawing.Point(0, 49);
             this.tabControl1.Name = "tabControl1";
@@ -588,37 +595,15 @@
             this.tabPage3.Text = "Длительность жизни";
             this.tabPage3.UseVisualStyleBackColor = true;
             // 
-            // dtpBirth
+            // button1
             // 
-            this.dtpBirth.Location = new System.Drawing.Point(8, 32);
-            this.dtpBirth.Name = "dtpBirth";
-            this.dtpBirth.Size = new System.Drawing.Size(200, 20);
-            this.dtpBirth.TabIndex = 0;
-            // 
-            // dtpDeath
-            // 
-            this.dtpDeath.Location = new System.Drawing.Point(8, 72);
-            this.dtpDeath.Name = "dtpDeath";
-            this.dtpDeath.Size = new System.Drawing.Size(200, 20);
-            this.dtpDeath.TabIndex = 0;
-            // 
-            // label1
-            // 
-            this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(8, 16);
-            this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(86, 13);
-            this.label1.TabIndex = 1;
-            this.label1.Text = "Дата рождения";
-            // 
-            // label3
-            // 
-            this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(8, 56);
-            this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(73, 13);
-            this.label3.TabIndex = 1;
-            this.label3.Text = "Дата смерти";
+            this.button1.Location = new System.Drawing.Point(11, 111);
+            this.button1.Name = "button1";
+            this.button1.Size = new System.Drawing.Size(75, 23);
+            this.button1.TabIndex = 2;
+            this.button1.Text = "Посчитать";
+            this.button1.UseVisualStyleBackColor = true;
+            this.button1.Click += new System.EventHandler(this.button1_Click);
             // 
             // lblResult
             // 
@@ -629,15 +614,86 @@
             this.lblResult.TabIndex = 1;
             this.lblResult.Text = "Продолжительность жизни: ";
             // 
-            // button1
+            // label3
             // 
-            this.button1.Location = new System.Drawing.Point(11, 111);
-            this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(75, 23);
-            this.button1.TabIndex = 2;
-            this.button1.Text = "Посчитать";
-            this.button1.UseVisualStyleBackColor = true;
-            this.button1.Click += new System.EventHandler(this.button1_Click);
+            this.label3.AutoSize = true;
+            this.label3.Location = new System.Drawing.Point(8, 56);
+            this.label3.Name = "label3";
+            this.label3.Size = new System.Drawing.Size(73, 13);
+            this.label3.TabIndex = 1;
+            this.label3.Text = "Дата смерти";
+            // 
+            // label1
+            // 
+            this.label1.AutoSize = true;
+            this.label1.Location = new System.Drawing.Point(8, 16);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(86, 13);
+            this.label1.TabIndex = 1;
+            this.label1.Text = "Дата рождения";
+            // 
+            // dtpDeath
+            // 
+            this.dtpDeath.Location = new System.Drawing.Point(8, 72);
+            this.dtpDeath.Name = "dtpDeath";
+            this.dtpDeath.Size = new System.Drawing.Size(200, 20);
+            this.dtpDeath.TabIndex = 0;
+            // 
+            // dtpBirth
+            // 
+            this.dtpBirth.Location = new System.Drawing.Point(8, 32);
+            this.dtpBirth.Name = "dtpBirth";
+            this.dtpBirth.Size = new System.Drawing.Size(200, 20);
+            this.dtpBirth.TabIndex = 0;
+            // 
+            // tabPage4
+            // 
+            this.tabPage4.Controls.Add(this.DateTo);
+            this.tabPage4.Controls.Add(this.DateFrom);
+            this.tabPage4.Controls.Add(this.tbConnectXml);
+            this.tabPage4.Controls.Add(this.btnConnect);
+            this.tabPage4.Location = new System.Drawing.Point(4, 22);
+            this.tabPage4.Name = "tabPage4";
+            this.tabPage4.Padding = new System.Windows.Forms.Padding(3);
+            this.tabPage4.Size = new System.Drawing.Size(648, 319);
+            this.tabPage4.TabIndex = 3;
+            this.tabPage4.Text = "Курс валют";
+            this.tabPage4.UseVisualStyleBackColor = true;
+            // 
+            // btnConnect
+            // 
+            this.btnConnect.Location = new System.Drawing.Point(9, 7);
+            this.btnConnect.Name = "btnConnect";
+            this.btnConnect.Size = new System.Drawing.Size(102, 23);
+            this.btnConnect.TabIndex = 0;
+            this.btnConnect.Text = "Подключится";
+            this.btnConnect.UseVisualStyleBackColor = true;
+            this.btnConnect.Click += new System.EventHandler(this.btnConnect_Click);
+            // 
+            // tbConnectXml
+            // 
+            this.tbConnectXml.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.tbConnectXml.Location = new System.Drawing.Point(9, 37);
+            this.tbConnectXml.Multiline = true;
+            this.tbConnectXml.Name = "tbConnectXml";
+            this.tbConnectXml.Size = new System.Drawing.Size(352, 276);
+            this.tbConnectXml.TabIndex = 1;
+            // 
+            // DateFrom
+            // 
+            this.DateFrom.Location = new System.Drawing.Point(440, 10);
+            this.DateFrom.Name = "DateFrom";
+            this.DateFrom.Size = new System.Drawing.Size(200, 20);
+            this.DateFrom.TabIndex = 2;
+            // 
+            // DateTo
+            // 
+            this.DateTo.Location = new System.Drawing.Point(440, 37);
+            this.DateTo.Name = "DateTo";
+            this.DateTo.Size = new System.Drawing.Size(200, 20);
+            this.DateTo.TabIndex = 2;
             // 
             // Form1
             // 
@@ -661,9 +717,9 @@
             this.toolStrip1.PerformLayout();
             this.tabPage2.ResumeLayout(false);
             this.tabPage2.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.trackBar1)).EndInit();
             this.groupBox1.ResumeLayout(false);
             this.groupBox1.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.trackBar1)).EndInit();
             this.tabPage1.ResumeLayout(false);
             this.tabPage1.PerformLayout();
             this.toolStrip2.ResumeLayout(false);
@@ -671,6 +727,8 @@
             this.tabControl1.ResumeLayout(false);
             this.tabPage3.ResumeLayout(false);
             this.tabPage3.PerformLayout();
+            this.tabPage4.ResumeLayout(false);
+            this.tabPage4.PerformLayout();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -741,6 +799,11 @@
         private System.Windows.Forms.Label lblResult;
         private System.Windows.Forms.Label label3;
         private System.Windows.Forms.Label label1;
+        private System.Windows.Forms.TabPage tabPage4;
+        private System.Windows.Forms.TextBox tbConnectXml;
+        private System.Windows.Forms.Button btnConnect;
+        private System.Windows.Forms.DateTimePicker DateTo;
+        private System.Windows.Forms.DateTimePicker DateFrom;
     }
 }
 
