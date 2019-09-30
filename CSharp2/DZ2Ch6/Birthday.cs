@@ -1,14 +1,28 @@
-﻿using System.ComponentModel;
+﻿using System;
+using System.Collections.Generic;
+using System.ComponentModel;
 using System.Runtime.CompilerServices;
+using System.Xml.Serialization;
 
 namespace DZ2Ch6
 {
-    class Birthday : INotifyPropertyChanged
+    [Serializable]
+    [XmlRoot]
+    public class Birthdaies
+    {
+        [XmlArray]
+        public List<Birthday> List { get; set; }
+    }
+
+    [Serializable]
+    [XmlType]
+    public class Birthday : INotifyPropertyChanged
     {
         private string name, lastName, middleName;
         private int day, month, year;
 
-        string Name
+        [XmlElement]
+        public string Name
         {
             get { return name; }
             set
@@ -18,7 +32,8 @@ namespace DZ2Ch6
             }
         }
 
-        string LastName
+        [XmlElement]
+        public string LastName
         {
             get { return lastName; }
             set
@@ -28,7 +43,8 @@ namespace DZ2Ch6
             }
         }
 
-        string MiddleName
+        [XmlElement]
+        public string MiddleName
         {
             get { return middleName; }
             set
@@ -38,7 +54,8 @@ namespace DZ2Ch6
             }
         }
 
-        int Day
+        [XmlElement]
+        public int Day
         {
             get { return day; }
             set
@@ -48,7 +65,8 @@ namespace DZ2Ch6
             }
         }
 
-        int Month
+        [XmlElement]
+        public int Month
         {
             get { return month; }
             set
@@ -58,7 +76,8 @@ namespace DZ2Ch6
             }
         }
 
-        int Year
+        [XmlElement]
+        public int Year
         {
             get { return year; }
             set
@@ -67,6 +86,9 @@ namespace DZ2Ch6
                 OnPropertyChanged("Year");
             }
         }
+
+        public Birthday()
+        { }
 
         public Birthday(string name, string lastName, string middleName, int day, int month, int year)
         {
